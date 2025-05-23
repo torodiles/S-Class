@@ -40,6 +40,14 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetBool("isGrounded", isGrounded());
         animator.SetFloat("verticalVelocity", rb.linearVelocity.y);
+        if (rb.linearVelocity.x > 0.1f || rb.linearVelocity.x < -0.1f)
+        {
+            animator.SetBool("isRunning", true);
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
+        }
     }
 
     private void FixedUpdate()
