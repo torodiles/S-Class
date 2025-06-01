@@ -17,9 +17,10 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         health -= damage;
     }
-    void Update()
-    {
-        if (health <= 0) Destroy(gameObject);
-    }
+    //void Update()
+    //{
+    //    if (health <= 0) Destroy(gameObject);
+    //}
+    // StateMachine mengurus death enemynya
 
 }

@@ -5,7 +5,7 @@ public class FrogMovement : MonoBehaviour
     private float speed = 3f;
     private float jumpPower = 10f;
     public bool facingRight = false;
-    public float jumpInterval = 2f;
+
     private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform wallCheckLeft;
@@ -18,7 +18,8 @@ public class FrogMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        InvokeRepeating("Jump", 1f, jumpInterval);
+        //InvokeRepeating("Jump", 1f, jumpInterval);
+        // Tidak perlu invokerepeating karena diurusin StateMachine
     }
     // Update is called once per frame
     void Update()
@@ -29,7 +30,7 @@ public class FrogMovement : MonoBehaviour
         animator.SetFloat("verticalVelocity", rb.linearVelocity.y);
     }
 
-    private void Jump()
+    public void Jump()
     {
         if (isGrounded())
         {
@@ -62,14 +63,14 @@ public class FrogMovement : MonoBehaviour
             check = wallCheckLeft;
         }
 
-        if (check == wallCheckRight)
-        {
-            Debug.Log("Checking RIGHT");
-        }
-        else
-        {
-            Debug.Log("Checking LEFT");
-        }
+        //if (check == wallCheckRight)
+        //{
+        //    Debug.Log("Checking RIGHT");
+        //}
+        //else
+        //{
+        //    Debug.Log("Checking LEFT");
+        //}
         RaycastHit2D hitWall = Physics2D.Raycast(check.position, direction, 0.5f, Ground);
 
         if (hitWall.collider != null)
@@ -79,7 +80,7 @@ public class FrogMovement : MonoBehaviour
             GetComponent<SpriteRenderer>().flipX = facingRight;
         }
     }
-    private bool isGrounded()
+    public bool isGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.1f, Ground);
     }
